@@ -19,7 +19,6 @@ ext {
     if (!project.hasProperty('bintrayVersion')) {
         bintrayVersion = project.version
     }
-
     // Credentials can be specified on the command-line using project properties,
     // or stored locally using the gradle-credentials-plugin.
     // See below for the name of project properties.
@@ -121,8 +120,8 @@ bintray {
     publications = ['publishedArtifacts']
 
     pkg {
-        userOrg = 'hibernate'
-        repo = project.isSnapshot ? 'snapshots' : 'artifacts'
+        userOrg = 'yrodiere'
+        repo = project.isSnapshot ? 'snapshots' : 'hibernate-release-testing'
         name = 'hibernate-reactive'
 
         publish = true
