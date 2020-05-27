@@ -71,7 +71,7 @@ publishing {
         mavenLocal()
         maven {
             name 'github-packages-repository'
-            url 'https://maven.pkg.github.com/hibernate/hibernate-reactive'
+            url 'https://maven.pkg.github.com/yrodiere/hibernate-reactive'
             credentials {
                 username project.githubUser
                 password project.githubToken
