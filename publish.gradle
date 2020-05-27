@@ -3,7 +3,7 @@ apply plugin: 'nu.studer.credentials'
 apply plugin: 'com.jfrog.bintray'
 
 // To publish snapshots:
-//  ./gradlew publish -PgithubUser="<YOUR USERNAME>" -PgithubToken="<YOUR TOKEN>"
+//  ./gradlew bintrayUpload -PbintrayUser="<YOUR USERNAME>" -PbintrayKey="<YOUR API KEY>" -PbintrayVersion="<the branch name>"
 // To release:
 //  1. Update the version, changelog, etc.
 //  2. Commit.
@@ -15,16 +15,15 @@ apply plugin: 'com.jfrog.bintray'
 //     > ./gradlew bintrayUpload -PbintrayUser="<YOUR USERNAME>" -PbintrayKey="<YOUR API KEY>"
 
 ext {
+    isSnapshot = version.toString().endsWith('-SNAPSHOT')
+    if (!project.hasProperty('bintrayVersion')) {
+        bintrayVersion = project.version
+    }
+
     // Credentials can be specified on the command-line using project properties,
     // or stored locally using the gradle-credentials-plugin.
     // See below for the name of project properties.
     // See https://github.com/etiennestuder/gradle-credentials-plugin to store credentials locally.
-    if (!project.hasProperty('githubUser')) {
-        githubUser = credentials.githubUser
-    }
-    if (!project.hasProperty('githubToken')) {
-        githubToken = credentials.githubToken
-    }
     if (!project.hasProperty('bintrayUser')) {
         bintrayUser = credentials.bintrayUser
     }
@@ -69,14 +68,6 @@ javadoc {
 publishing {
     repositories {
         mavenLocal()
-        maven {
-            name 'github-packages-repository'
-            url 'https://maven.pkg.github.com/yrodiere/hibernate-reactive'
-            credentials {
-                username project.githubUser
-                password project.githubToken
-            }
-        }
     }
     publications {
         publishedArtifacts(MavenPublication) {
@@ -131,20 +122,20 @@ bintray {
 
     pkg {
         userOrg = 'hibernate'
-        repo = 'artifacts'
+        repo = project.isSnapshot ? 'snapshots' : 'artifacts'
         name = 'hibernate-reactive'
 
         publish = true
 
         version {
-            name = project.version
+            name = project.bintrayVersion
             released = new Date()
-            vcsTag = project.version
+            vcsTag = project.bintrayVersion
             gpg {
-                sign = true
+                sign = !project.isSnapshot
             }
             mavenCentralSync {
-                sync = true
+                sync = !project.isSnapshot
             }
         }
     }
