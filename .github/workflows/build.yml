@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - i102-test-github
   pull_request:
     branches: master
 
