@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - i102
   pull_request:
     branches: master
 
