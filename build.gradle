@@ -38,7 +38,7 @@ ext {
 subprojects {
     apply plugin: 'java-library'
     apply plugin: 'com.diffplug.gradle.spotless'
-    group = 'org.hibernate.reactive'
+    group = 'org.yrodiere.hibernate.reactive'
     version = projectVersion
     sourceCompatibility = 1.8
     targetCompatibility = 1.8

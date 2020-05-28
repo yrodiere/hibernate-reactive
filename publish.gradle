@@ -128,8 +128,8 @@ bintray {
     publications = ['publishedArtifacts']
 
     pkg {
-        userOrg = 'hibernate'
-        repo = 'artifacts'
+        userOrg = 'yrodiere'
+        repo = 'hibernate-release-testing'
         name = 'hibernate-reactive'
 
         publish = true
