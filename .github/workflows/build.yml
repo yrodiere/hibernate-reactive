@@ -161,6 +161,9 @@ jobs:
       id: install-mainjdk
       with:
         java-version: 8
+    - name: Display exact version of JDK ${{ matrix.java.name }}
+      run: |
+        ${{ steps.install-testjdk.outputs.path }}/bin/java -version
     - name: Build and Test with Java ${{ matrix.java.name }}
       run: |
         ./gradlew build -PshowStandardOutput -Pdocker -Ptest.jdk.version=${{ matrix.java.java-version }} \
